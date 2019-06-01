@@ -17,21 +17,23 @@ public class MeasurementController {
 	
 	/**
 	 * 
-	 * @param measurement
+	 * @param sourceMeasurement
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/measurement")
-	public Measurement doTransformFromPrefix(@RequestBody Measurement measurement) throws Exception	{
+	@PostMapping("/conversion")
+	public Measurement doTransformFromPrefix(@RequestBody Measurement sourceMeasurement) throws Exception	{
 		
-		Unit<?> sourceUnit = Units.getInstance().getUnit(measurement.getUnit()).prefix(MetricPrefix.valueOf(measurement.getPrefix()));
-		Unit<?> targetUnit = Units.getInstance().getUnit(measurement.getTargetUnit()).prefix(MetricPrefix.valueOf(measurement.getTargetPrefix()));
+		Unit<?> sourceUnit = Units.getInstance().getUnit(sourceMeasurement.getUnit()).prefix(MetricPrefix.valueOf(sourceMeasurement.getPrefix()));
+		Unit<?> targetUnit = Units.getInstance().getUnit(sourceMeasurement.getTargetUnit()).prefix(MetricPrefix.valueOf(sourceMeasurement.getTargetPrefix()));
 		UnitConverter converter = sourceUnit.getConverterToAny(targetUnit);
-		Number result = converter.convert(measurement.getValue());
+		
+		Number result = converter.convert(sourceMeasurement.getValue());
+		
 		Measurement resultMeasurement = new Measurement();
 		resultMeasurement.setValue(result);
-		resultMeasurement.setUnit(measurement.getUnit());
-		resultMeasurement.setPrefix(measurement.getPrefix());
+		resultMeasurement.setUnit(sourceMeasurement.getTargetUnit());
+		resultMeasurement.setPrefix(sourceMeasurement.getTargetPrefix());
 		
 		return resultMeasurement;
 	}
