@@ -1,6 +1,6 @@
 package org.koenlars.uom.sbdemo;
 
-public class ConversionUnit {
+public class ConversionInput {
 	private Number value;
 	private String unit;
 	private String prefix;
