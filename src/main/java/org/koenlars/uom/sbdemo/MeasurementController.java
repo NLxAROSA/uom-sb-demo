@@ -4,6 +4,8 @@ import javax.measure.MetricPrefix;
 import javax.measure.Unit;
 import javax.measure.UnitConverter;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,14 +14,26 @@ import tech.units.indriya.unit.Units;
 
 @RestController
 public class MeasurementController {
-	@PostMapping("/meters")
-	public Measurement doTransformIntoMeters(@RequestBody Measurement measurement) throws Exception	{
-		Unit<?> sourceUnit = Units.getInstance().getUnit("m").prefix(MetricPrefix.valueOf("KILO"));
-		Unit<?> targetUnit = Units.getInstance().getUnit("m");
+	
+	@GetMapping("/meters/{number}")
+	public Measurement doTransformIntoMeters(@PathVariable("number") String number) throws Exception	{
+		Measurement measurement = new Measurement(); 
+		measurement.setPrefix("KILO");
+		measurement.setUnit("m");
+		measurement.setValue(new Long(number));
+		return doTransform(measurement); 
+	}
+	@PostMapping("/measurement")
+	public Measurement doTransform(@RequestBody Measurement measurement) throws Exception	{
+		Unit<?> sourceUnit = Units.getInstance().getUnit(measurement.getUnit()).prefix(MetricPrefix.valueOf(measurement.getPrefix()));
+		Unit<?> targetUnit = Units.getInstance().getUnit(measurement.getUnit());
 		UnitConverter converter = sourceUnit.getConverterToAny(targetUnit);
 		Number result = converter.convert(measurement.getValue());
 		Measurement resultMeasurement = new Measurement();
 		resultMeasurement.setValue(result);
+		resultMeasurement.setUnit(measurement.getUnit());
+		resultMeasurement.setPrefix(measurement.getPrefix());
+
 		return resultMeasurement;
 	}
 }
