@@ -10,7 +10,7 @@ http POST http://localhost:7070/conversion value=80 prefix=KILO unit=g targetPre
 
 *value* is the value to convert
 
-*prefix* and *targetPrefix* are valid String representation values from [javax.measure.MetricPrefix](http://unitsofmeasurement.github.io/unit-api/site/apidocs/index.html?javax/measure/Quantity.html)
+*prefix* and *targetPrefix* are valid String representation values from [javax.measure.MetricPrefix](http://unitsofmeasurement.github.io/unit-api/site/apidocs/index.html?javax/measure/MetricPrefix.html)
 
 *unit* and *targetUnit* are valid String representation values from [tech.units.indriya.unit.Units](https://github.com/unitsofmeasurement/indriya/blob/master/src/main/java/tech/units/indriya/unit/Units.java)
 
