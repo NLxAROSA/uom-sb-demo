@@ -19,25 +19,27 @@ public class MeasurementController {
 	
 	/**
 	 * 
-	 * @param measurement
+	 * @param sourceMeasurement
 	 * @return
 	 * @throws Exception
 	 */
 	@PostMapping("/conversion")
-	public ConversionUnit doTransformFromPrefix(@RequestBody ConversionUnit measurement) throws Exception	{
-		if (measurement.getTargetPrefix()==null) {
-			measurement.setTargetPrefix(measurement.getPrefix());
+	public ConversionUnit doTransformFromPrefix(@RequestBody ConversionUnit conversionUnit) throws Exception	{
+		if (conversionUnit.getTargetPrefix()==null) {
+			conversionUnit.setTargetPrefix(conversionUnit.getPrefix());
 		}
 		
-		Unit<?> sourceUnit = createUnit(measurement.getUnit(),measurement.getPrefix());
-		Unit<?> targetUnit = createUnit(measurement.getTargetUnit(),measurement.getTargetPrefix());
+		Unit<?> sourceUnit = createUnit(conversionUnit.getUnit(),conversionUnit.getPrefix());
+		Unit<?> targetUnit = createUnit(conversionUnit.getTargetUnit(),conversionUnit.getTargetPrefix());
 		
 		ConversionUnit resultMeasurement = new ConversionUnit();
-		resultMeasurement.setValue(conversionOfUnits(sourceUnit, targetUnit, measurement.getValue()));
-		resultMeasurement.setUnit(measurement.getTargetUnit());
-		resultMeasurement.setPrefix(measurement.getTargetPrefix());
+		resultMeasurement.setValue(conversionOfUnits(sourceUnit, targetUnit, conversionUnit.getValue()));
+		resultMeasurement.setUnit(conversionUnit.getTargetUnit());
+		resultMeasurement.setPrefix(conversionUnit.getTargetPrefix());
+		
 		return resultMeasurement;
 	}
+	
 	
 	private Unit<?> createUnit( String unit, String prefix) throws UnconvertibleException, IncommensurableException {
 		Unit<?> targetUnit = Units.getInstance().getUnit(unit);
