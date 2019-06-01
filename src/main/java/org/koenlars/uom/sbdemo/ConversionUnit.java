@@ -1,6 +1,6 @@
 package org.koenlars.uom.sbdemo;
 
-public class Measurement {
+public class ConversionUnit {
 	private Number value;
 	private String unit;
 	private String prefix;

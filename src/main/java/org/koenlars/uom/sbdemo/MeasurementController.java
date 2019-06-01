@@ -24,7 +24,7 @@ public class MeasurementController {
 	 * @throws Exception
 	 */
 	@PostMapping("/conversion")
-	public Measurement doTransformFromPrefix(@RequestBody Measurement measurement) throws Exception	{
+	public ConversionUnit doTransformFromPrefix(@RequestBody ConversionUnit measurement) throws Exception	{
 		if (measurement.getTargetPrefix()==null) {
 			measurement.setTargetPrefix(measurement.getPrefix());
 		}
@@ -32,9 +32,9 @@ public class MeasurementController {
 		Unit<?> sourceUnit = createUnit(measurement.getUnit(),measurement.getPrefix());
 		Unit<?> targetUnit = createUnit(measurement.getTargetUnit(),measurement.getTargetPrefix());
 		
-		Measurement resultMeasurement = new Measurement();
+		ConversionUnit resultMeasurement = new ConversionUnit();
 		resultMeasurement.setValue(conversionOfUnits(sourceUnit, targetUnit, measurement.getValue()));
-		resultMeasurement.setUnit(measurement.getUnit());
+		resultMeasurement.setUnit(measurement.getTargetUnit());
 		resultMeasurement.setPrefix(measurement.getTargetPrefix());
 		return resultMeasurement;
 	}
