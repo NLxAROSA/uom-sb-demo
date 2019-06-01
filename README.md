@@ -5,7 +5,7 @@ This is a small demo to demonstrate unit and prefix conversion using the RI of J
 # Usage (using HTTPie)
 
 ```bash
-http POST http://localhost:7070/conversion *value*=80 *prefix*=KILO *unit*=g *targetPrefix*=MILLI *targetUnit*=g
+http POST http://localhost:7070/conversion value=80 prefix=KILO unit=g targetPrefix=MILLI targetUnit=g
 ```
 
 *value* is the value to convert
