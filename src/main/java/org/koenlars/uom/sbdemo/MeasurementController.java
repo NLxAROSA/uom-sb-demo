@@ -21,10 +21,17 @@ public class MeasurementController {
 		measurement.setPrefix("KILO");
 		measurement.setUnit("m");
 		measurement.setValue(new Long(number));
-		return doTransform(measurement); 
+		return doTransformFromPrefix(measurement); 
 	}
+	
+	/**
+	 * 
+	 * @param measurement
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/measurement")
-	public Measurement doTransform(@RequestBody Measurement measurement) throws Exception	{
+	public Measurement doTransformFromPrefix(@RequestBody Measurement measurement) throws Exception	{
 		Unit<?> sourceUnit = Units.getInstance().getUnit(measurement.getUnit()).prefix(MetricPrefix.valueOf(measurement.getPrefix()));
 		Unit<?> targetUnit = Units.getInstance().getUnit(measurement.getUnit());
 		UnitConverter converter = sourceUnit.getConverterToAny(targetUnit);
@@ -33,7 +40,7 @@ public class MeasurementController {
 		resultMeasurement.setValue(result);
 		resultMeasurement.setUnit(measurement.getUnit());
 		resultMeasurement.setPrefix(measurement.getPrefix());
-
+		
 		return resultMeasurement;
 	}
 }
