@@ -43,5 +43,13 @@ public class ConversionInput {
 		this.targetPrefix = targetPrefix;
 	}
 	
-	
+	public static ConversionInput createForDemo(Long input) {
+		ConversionInput demo = new ConversionInput(); 
+		demo.setPrefix("KILO");
+		demo.setTargetPrefix("MILLI");
+		demo.setTargetUnit("m");
+		demo.setUnit("m");
+		demo.setValue(input);
+		return demo; 
+	}
 }

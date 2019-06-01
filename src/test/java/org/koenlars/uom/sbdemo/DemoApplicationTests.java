@@ -1,5 +1,6 @@
 package org.koenlars.uom.sbdemo;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,9 @@ public class DemoApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		ConversionController controller = new ConversionController();
+		Double result = (Double) controller.doDemo("1").getTargetValue();
+		Assert.assertEquals(result,new Double(1000*1000));
 	}
 
 }

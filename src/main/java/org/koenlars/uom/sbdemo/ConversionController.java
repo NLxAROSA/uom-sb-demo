@@ -22,14 +22,7 @@ public class ConversionController {
 	 */
 	@GetMapping("/demo/{kilometers}")
 	public ConversionOutput doDemo(@PathVariable("kilometers") String kilometers)	{
-		ConversionInput demo = new ConversionInput(); 
-		demo.setPrefix("KILO");
-		demo.setTargetPrefix("MILLI");
-		demo.setTargetUnit("m");
-		demo.setUnit("m");
-		demo.setValue(new Long(kilometers));
-		
-		return doTransformFromPrefix(demo);
+		return doTransformFromPrefix(ConversionInput.createForDemo(new Long(kilometers)));
 	}
 
 	
