@@ -4,6 +4,10 @@ public class Measurement {
 	private Number value;
 	private String unit;
 	private String prefix;
+
+	private String targetUnit;
+	private String targetPrefix;
+
 	public Number getValue() {
 		return value;
 	}
@@ -21,7 +25,23 @@ public class Measurement {
 	}
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
-	} 
+	}
+
+	public String getTargetUnit() {
+		return targetUnit;
+	}
+
+	public void setTargetUnit(String targetUnit) {
+		this.targetUnit = targetUnit;
+	}
+
+	public String getTargetPrefix() {
+		return targetPrefix;
+	}
+
+	public void setTargetPrefix(String targetPrefix) {
+		this.targetPrefix = targetPrefix;
+	}
 	
 	
 }

@@ -15,15 +15,6 @@ import tech.units.indriya.unit.Units;
 @RestController
 public class MeasurementController {
 	
-	@GetMapping("/meters/{number}")
-	public Measurement doTransformIntoMeters(@PathVariable("number") String number) throws Exception	{
-		Measurement measurement = new Measurement(); 
-		measurement.setPrefix("KILO");
-		measurement.setUnit("m");
-		measurement.setValue(new Long(number));
-		return doTransformFromPrefix(measurement); 
-	}
-	
 	/**
 	 * 
 	 * @param measurement
@@ -32,8 +23,9 @@ public class MeasurementController {
 	 */
 	@PostMapping("/measurement")
 	public Measurement doTransformFromPrefix(@RequestBody Measurement measurement) throws Exception	{
+		
 		Unit<?> sourceUnit = Units.getInstance().getUnit(measurement.getUnit()).prefix(MetricPrefix.valueOf(measurement.getPrefix()));
-		Unit<?> targetUnit = Units.getInstance().getUnit(measurement.getUnit());
+		Unit<?> targetUnit = Units.getInstance().getUnit(measurement.getTargetUnit()).prefix(MetricPrefix.valueOf(measurement.getTargetPrefix()));
 		UnitConverter converter = sourceUnit.getConverterToAny(targetUnit);
 		Number result = converter.convert(measurement.getValue());
 		Measurement resultMeasurement = new Measurement();
