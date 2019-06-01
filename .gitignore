@@ -4,3 +4,4 @@ target/
 .project
 .idea
 org.eclipse.*
+.settings

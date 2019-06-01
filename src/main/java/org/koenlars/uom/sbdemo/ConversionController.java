@@ -15,6 +15,11 @@ import tech.units.indriya.unit.Units;
 @RestController
 public class ConversionController {
 
+	/** 
+	 * Demo conversion, kilometers into millimeters
+	 * @param kilometers
+	 * @return
+	 */
 	@GetMapping("/demo/{kilometers}")
 	public ConversionOutput doDemo(@PathVariable("kilometers") String kilometers)	{
 		ConversionInput demo = new ConversionInput(); 
@@ -29,9 +34,9 @@ public class ConversionController {
 
 	
 	/**
-	 * 
-	 * @param sourceMeasurement
-	 * @return
+	 * provide prefixes and units for the conversion. 
+	 * @param conversionInput
+	 * @return conversionOutput
 	 * @throws Exception
 	 */
 	@PostMapping("/conversion")
